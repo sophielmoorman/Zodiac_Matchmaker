@@ -52,7 +52,7 @@ def main(birthday):
         end_day = range_end[3:5]
         end_day = int(end_day)
 
-        print(start_day,end_day)
+      #  print(start_day,end_day)
 
         
         
