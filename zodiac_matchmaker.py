@@ -2,9 +2,6 @@
 def main(birthday):
     # Goal: Take in a birthday and describe the zodiac sign of that person
 
-    birthday = "01/12/2000"
-    # birthday = ['0', '1', '/', '1', '2', '/', '2', '0', '0', '0']
-
     # "MM/DD/YYYY"
     month = birthday[0] + birthday[1]
     month = int(month)
@@ -16,6 +13,23 @@ def main(birthday):
 
     year = int(birthday[6:10])
     # print("year: ", year, type(year))
+
+    current_date = [month, day]
+    
+    month_dict = {
+       1 : 31,
+       2 : 29,
+       3 : 31, #there are 30 days in march
+       4 : 30,
+       5 : 31,
+       6 : 30,
+       7 : 31,
+       8 : 30,
+       9 : 31,
+       10 : 30,
+       11 : 31,
+       12 : 30}
+  
 
     dates = {
         "Aries":          ["03/21", "04/20"],   # [21 March, 20 April]
@@ -31,7 +45,8 @@ def main(birthday):
         "Aquarius":       ["01/20", "02/19"],   # [20 January, 19 February]
         "Pisces":         ["02/19", "03/21"]}    # [19 February, 21 March]
 
-    for sign in dates:
+    for sign in dates: # starting at i = 0, sign = dates[i]
+
         # get page contents (date range for sign)
         range_of_dates = dates[sign]
 
@@ -45,6 +60,8 @@ def main(birthday):
         start_day = range_start[3:5]
         start_day = int(start_day)
 
+        max_days_in_month = month_dict[start_month]
+        # print(max_days_in_month)
 
         # get end day and month, cast to int
         end_month = range_end[0:2]
@@ -52,39 +69,53 @@ def main(birthday):
         end_day = range_end[3:5]
         end_day = int(end_day)
 
-      #  print(start_day,end_day)
+        # make range list 
+        sign_range = []
 
+        # while loop to build range list
+        date = [start_month, start_day]
+        stop_date = [end_month, end_day]
+
+        sign_range.append(date)
+
+        # for every day in date range, add date to sign_range
+        while date != stop_date : 
+            my_month = date[0]
+            my_day = date[1]
+
+            new_day = my_day
+            new_month = my_month
+
+            # last day of the month
+            if my_day == max_days_in_month:
+
+                # last month of the year
+                if my_month == 12:
+                    new_month = 1
+                else:
+                    new_month = my_month + 1
+                
+                new_day = 1
+            else:
+                new_day = my_day + 1
+
+            # please no infinite while loop
+            date = [new_month, new_day]
+
+            # build sign range array 
+            sign_range.append(date)
+            
+        # check if date is in range list 
+        if current_date in sign_range:
+            return sign
+    
         
         
 if __name__ == "__main__":
-    birthday = "01/12/2000"
-    main(birthday)
-    a_list = [1,2,3]
-    # print("a_list: ", a_list, type(a_list))
+    birthday = "11/14/2002"
+    sign = main(birthday)
 
-
-
-
-    # my_dict = dict()
-    # my_dict = {
-    #     'sophie' : ['cute', 'small']
-    # }
-
-    # page_finder = my_dict['sophie']
-    # describer = page_finder[0]
-    # print(describer)
-
-
-
-
-
-
-
-
-
-
-
-
+    print("With a birthday of ", birthday, " you have the sign", sign, ".")
 
     # Steps
         # 1 process date
