@@ -1,5 +1,5 @@
 
-def main(birthday):
+def get_sign(birthday):
     # Goal: Take in a birthday and describe the zodiac sign of that person
 
     # "MM/DD/YYYY"
@@ -108,22 +108,76 @@ def main(birthday):
         # check if date is in range list 
         if current_date in sign_range:
             return sign
+
+def compatibility(sign1, sign2):
+
+    # dictionary of compatibilities
+    compatible = {
+        "Aries":          ["Leo", "Sagittarius"],  
+        "Taurus":	      ["Virgo", "Capricorn"],   
+        "Gemini":         ["Libra", "Aquarius"],  
+        "Cancer":         ["Scorpio", "Pisces"],   
+        "Leo":	          ["Aries", "Sagittarius"],  
+        "Virgo":          ["Capricorn", "Taurus"],   
+        "Libra":          ["Gemini", "Aquarius"],  
+        "Scorpio":        ["Cancer", "Pisces"],  
+        "Sagittarius":	  ["Aries", "Leo"],   
+        "Capricorn":      ["Taurus", "Virgo"],   
+        "Aquarius":       ["Gemini", "Libra"],  
+        "Pisces":         ["Cancer", "Scorpio"]}  
+
+    # which signs are sign1 compatible with?
+    # compatible[sign1] --> error if sign1 not in dictionary
+    sign1_compatability_list = compatible.get(sign1, []) 
+
+    # if sign2 is in the list
+    if sign2 in sign1_compatability_list:
+        # they are compatible!
+        return "compatible!"
+
+    # if sign2 was not in the list of compatible signs for sign1
+    else:
+        # not compatible
+        return "incompatible!"
+
+def personality(sign):
+    # dictionary of personalities
+    personalities = {
+        "Aries":          "courageous, determined, confident, enthusiastic, optimistic, honest, and passionate.",  
+        "Taurus":	      "reliable, patient, practical, devoted, responsible, and stable.",   
+        "Gemini":         "gentle, affectionate, curious, adaptable, and have an ability to learn quickly and exchange ideas.",  
+        "Cancer":         "tenacious, highly imaginative, loyal, emotional, sympathetic, and persuasive.",   
+        "Leo":	          "creative, passionate, generous, warm-hearted, cheerful, and humorous.",  
+        "Virgo":          "loyal, analytical, kind, hardworking, and practical.",   
+        "Libra":          "cooperative,diplomatic, gracious, fair-minded, and social.",  
+        "Scorpio":        "resourceful, brave, passionate, stubborn, and are a true friend.",  
+        "Sagittarius":	  "generous, idealistic, and have a great sense of humor.",   
+        "Capricorn":      "responsible, disciplined, self-control, and good managers.",   
+        "Aquarius":       "progressive, original, independent, and humanitarian.",  
+        "Pisces":         "compassionate, artistic, intuitive, gentle, wise, and are musical."} 
+
+    # get description of sign from dictionary
+    personality_trait = personalities.get(sign, "*invalid sign*")
     
-        
-        
+    return personality_trait
+
 if __name__ == "__main__":
-    birthday = "11/14/2002"
-    sign = main(birthday)
 
-    print("With a birthday of ", birthday, " you have the sign", sign, ".")
+    # person 1
+    birthday1 = "11/14/2002"
+    sign1 = get_sign(birthday1)
+    personality1 = personality(sign1)
+    print("With a birthday of ", birthday1, " you have the sign ", sign1, ".")
+    print(sign1, " are generally ", personality1)
 
-    # Steps
-        # 1 process date
-        # 1 output result
-        # 2 input date
-        # 3 input 2 dates
+    # person 2
+    birthday2 = "03/14/2000"
+    sign2 = get_sign(birthday2)
+    personality2 = personality(sign2)
+    print("\nWith a birthday of ", birthday2, " you have the sign ", sign2, ".")
+    print(sign2, " are generally ", personality2)
 
-    # https://en.wikipedia.org/wiki/Zodiac
-
-    # signs and their date range
+    # compatability
+    verdict = compatibility(sign1, sign2) # "compatible, complementary, incompatible"
+    print('\n', sign1, " and ", sign2, " are ", verdict)
   
